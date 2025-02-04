@@ -18,7 +18,7 @@ The main method used for input-output will be text-to-text, but various other ar
 
 ### Business Considerations
 
-One of the challenges will be the high amount of data, considering the B2 certification requires knowledge of about 3500-4000 words and the difficult German grammar.
+One of the challenges will be the high amount of data, considering the B2 certification requires knowledge of about 4-5000 words and the difficult German grammar.
 
 
 
