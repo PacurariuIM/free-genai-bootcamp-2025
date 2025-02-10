@@ -1,17 +1,22 @@
-- SHOW HOW: switch to .md file formating
-
 # PROJECT OVERVIEW
 
+We are building a language learning portal which will act as three things:
+- Inventory of possible vocabulary that can be learned
+- Act as a  Learning record store (LRS), providing correct and wrong score on practice vocabulary
+- A unified launchpad to launch different learning apps
 
 
 # PERSONALITY
 
+Act as a senior developer, who is responsible for the overall architecture and design of the project.
 
-# TECH STACK
-- Backend: Node.js
-- Frontend: typescript, react, tailwind, ShadCN, Vite.js
-- Database: SQLite3
+# TECH STACK & REQUIREMENTS
 
+- Backend: Node.js, Express.js, SQLite3, Sequelize ORM
+- Frontend: Typescript, Tailwind CSS, ShadCN, Vite.js, React Router, Zod, React Query
+- The API should be in JSON format
+- There will be no authentication or authorization
+- Everything will be treated as a single user
 
 # ERROR FIXING PROCESS
 
