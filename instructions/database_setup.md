@@ -5,7 +5,6 @@ We have the following tables:
   - id (integer)
   - german (string)
   - english (string)
-  - parts (json)
 - words_groups: join table for words and groups, many-to-many relationship
   - id (integer)
   - word_id (integer)
