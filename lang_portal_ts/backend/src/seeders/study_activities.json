@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Flashcards",
+    "description": "Practice vocabulary with flashcards",
+    "thumbnail": "flashcards.png",
+    "launchUrl": "/study/flashcards"
+  },
+  {
+    "name": "Multiple Choice",
+    "description": "Test your knowledge with multiple choice questions",
+    "thumbnail": "quiz.png",
+    "launchUrl": "/study/quiz"
+  },
+  {
+    "name": "Writing Practice",
+    "description": "Practice writing German words and phrases",
+    "thumbnail": "writing.png",
+    "launchUrl": "/study/writing"
+  }
+] 

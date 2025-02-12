@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Adjectives",
+    "description": "Descriptive words"
+  },
+  {
+    "name": "Nouns",
+    "description": "People, places, things"
+  },
+  {
+    "name": "Verbs",
+    "description": "Action words"
+  },
+  {
+    "name": "Beginner Words",
+    "description": "Essential vocabulary for beginners"
+  },
+  {
+    "name": "Common Phrases",
+    "description": "Frequently used expressions"
+  }
+] 
