@@ -9,7 +9,7 @@ A language learning school wants to build a prototype of learning portal which w
 
 ## Tech Stack
 - Backend: Node.js, Express.js, SQLite3, Sequelize ORM
-- Frontend: Typescript, Tailwind CSS, ShadCN, Vite.js, React Router, Zod, React Query
+- Frontend: Typescript, React.js, Tailwind CSS, ShadCN, Vite.js, React Router, Zod, React Query
 - The API should be in JSON format
 - There will be no authentication or authorization
 - Everything will be treated as a single user
