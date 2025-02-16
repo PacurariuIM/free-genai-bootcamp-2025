@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { Group, Word, StudySession, WordReview } from '../models';
-import { GroupModel, StudySessionModel, WordReviewModel } from '../types/models';
-import { Op } from 'sequelize';
+import { GroupModel } from '../types/models';
 import { validate } from '../middleware/validate';
 import { paginationSchema, idParamSchema } from '../schemas';
 
@@ -32,8 +31,10 @@ router.get('/', validate(paginationSchema), async (req, res, next) => {
       perPage,
       data: groups
     });
+    return;
   } catch (error) {
     next(error);
+    return;
   }
 });
 
@@ -53,7 +54,8 @@ router.get('/:id', validate(idParamSchema), async (req, res, next) => {
     }) as Group & GroupModel;
 
     if (!group) {
-      return res.status(404).json({ error: 'Group not found' });
+      res.status(404).json({ error: 'Group not found' });
+      return;
     }
 
     const sessions = group.StudySessions || [];
@@ -69,8 +71,10 @@ router.get('/:id', validate(idParamSchema), async (req, res, next) => {
       totalStudySessions: sessions.length,
       averageSuccessRate: totalReviews ? (correctReviews / totalReviews) * 100 : 0
     });
+    return;
   } catch (error) {
     next(error);
+    return;
   }
 });
 

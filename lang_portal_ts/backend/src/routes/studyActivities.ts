@@ -1,20 +1,21 @@
 import { Router } from 'express';
 import { StudyActivity, StudySession, WordReview } from '../models';
-import { StudyActivityModel, StudySessionModel } from '../types/models';
 import { validate } from '../middleware/validate';
 import { paginationSchema, idParamSchema } from '../schemas';
 import { z } from 'zod';
+import { StudySessionModel } from '../types/models';
 
 const router = Router();
 
 // GET /api/study-activities
-router.get('/', validate(paginationSchema), async (req, res, next) => {
+router.get('/', validate(paginationSchema), async (_, res, next) => {
   try {
-    const { page, perPage } = req.query;
     const activities = await StudyActivity.findAll();
     res.json(activities);
+    return;
   } catch (error) {
     next(error);
+    return;
   }
 });
 
@@ -23,11 +24,14 @@ router.get('/:id', validate(idParamSchema), async (req, res, next) => {
   try {
     const activity = await StudyActivity.findByPk(req.params.id);
     if (!activity) {
-      return res.status(404).json({ error: 'Study activity not found' });
+      res.status(404).json({ error: 'Study activity not found' });
+      return;
     }
     res.json(activity);
+    return;
   } catch (error) {
     next(error);
+    return;
   }
 });
 
@@ -58,8 +62,6 @@ router.get('/:id/study-sessions',
 
       const sessions = rows.map((session: StudySession) => ({
         id: session.id,
-        activityName: (session as unknown as StudySessionModel).StudyActivity?.name,
-        groupName: (session as unknown as StudySessionModel).Group?.name,
         startTime: session.startedAt,
         endTime: session.endedAt,
         reviewItemsCount: (session as unknown as StudySessionModel).WordReviews?.length || 0
@@ -71,8 +73,10 @@ router.get('/:id/study-sessions',
         perPage,
         data: sessions
       });
+      return;
     } catch (error) {
       next(error);
+      return;
     }
   }
 );

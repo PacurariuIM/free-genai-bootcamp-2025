@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { Word, Group, WordReview } from '../models';
-import { WordModel, WordAttributes } from '../types/models';
+import { WordModel } from '../types/models';
 import { validate } from '../middleware/validate';
 import { paginationSchema, wordSchema } from '../schemas';
 
@@ -40,11 +40,12 @@ router.get('/', validate(paginationSchema), async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+    return;
   }
 });
 
 // GET /api/words/:id - Get word details
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const word = await Word.findByPk(req.params.id, {
       include: [
@@ -60,7 +61,8 @@ router.get('/:id', async (req, res) => {
     }) as Word & WordModel;
 
     if (!word) {
-      return res.status(404).json({ error: 'Word not found' });
+      res.status(404).json({ error: 'Word not found' });
+      return;
     }
 
     const reviews = word.WordReviews || [];
@@ -76,7 +78,8 @@ router.get('/:id', async (req, res) => {
       }))
     });
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    next(error);
+    return;
   }
 });
 

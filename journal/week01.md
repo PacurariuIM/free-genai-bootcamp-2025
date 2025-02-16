@@ -87,6 +87,27 @@ npm run dev
 - Documentation
 - Example requests/responses
 
+# Frontend Implementation Steps
+
+## 1. Create project structure
+```bash
+cd lang_portal_ts
+npx create-next-app@latest frontend --typescript --tailwind --app --use-npm
+cd frontend
+npm install @radix-ui/react-slot class-variance-authority clsx tailwind-merge lucide-react
+npm install -g shadcn-ui ## or npm install @shadcn/ui
+npm install -D @shadcn/ui
+```
+## 2. The root layout with navigation
+
+
+## 3. The redirect from '/' to '/dashboard'
+
+
+## 4. The navigation bar component
+
+
+
 # OPEA comps
 
 ### Docker install

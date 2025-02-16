@@ -1,7 +1,17 @@
 # Frontend technical spec
 
+## Global components
+
+Navigation bar will be horizontal, with the following links:
+- dashboard
+- study activities
+- words
+- groups
+- settings
 
 ## Pages
+
+Default route '/' will redirect to '/dashboard'.
 
 ### Dashboard Index `/dashboard`
 

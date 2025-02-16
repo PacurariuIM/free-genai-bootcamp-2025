@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { StudySession, Word, WordReview, Group, StudyActivity } from '../models';
-import { StudySessionModel, WordReviewModel } from '../types/models';
+import { StudySession, StudyActivity, Group, WordReview } from '../models';
+import { StudySessionModel } from '../types/models';
 import { validate } from '../middleware/validate';
 import { paginationSchema, studySessionSchema, wordReviewSchema } from '../schemas';
 
@@ -48,14 +48,23 @@ router.get('/', validate(paginationSchema), async (req, res, next) => {
       perPage,
       data: sessions
     });
+    return;
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    next(error);
+    return;
   }
 });
 
 // POST /api/study-sessions
 router.post('/', validate(studySessionSchema), async (req, res, next) => {
-  // ... existing handler
+  try {
+    const session = await StudySession.create(req.body);
+    res.status(201).json(session);
+    return;
+  } catch (error) {
+    next(error);
+    return;
+  }
 });
 
 // POST /api/study-sessions/:id/words/:word_id/review
@@ -79,8 +88,10 @@ router.post('/:id/words/:word_id/review',
         correct: review.correct,
         reviewedAt: review.createdAt
       });
+      return;
     } catch (error) {
       next(error);
+      return;
     }
   }
 );

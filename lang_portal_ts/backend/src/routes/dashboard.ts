@@ -1,13 +1,11 @@
 import { Router } from 'express';
 import { StudySession, Word, Group, WordReview } from '../models';
-import { Op } from 'sequelize';
 import { StudySessionAttributes } from '../types/models';
-import { validate } from '../middleware/validate';
 
 const router = Router();
 
 // GET /api/dashboard/last_study_session
-router.get('/last_study_session', async (req, res, next) => {
+router.get('/last_study_session', async (_, res, next) => {
   try {
     const lastSession = await StudySession.findOne({
       include: [
@@ -28,7 +26,8 @@ router.get('/last_study_session', async (req, res, next) => {
     }) as StudySession & StudySessionAttributes;
 
     if (!lastSession) {
-      return res.json(null);
+      res.json(null);
+      return;
     }
 
     const words = lastSession.Words || [];
@@ -47,11 +46,12 @@ router.get('/last_study_session', async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+    return;
   }
 });
 
 // GET /api/dashboard/study_progress
-router.get('/study_progress', async (req, res, next) => {
+router.get('/study_progress', async (_, res, next) => {
   try {
     const totalWordsAvailable = await Word.count();
     const totalWordsStudied = await Word.count({
@@ -72,7 +72,7 @@ router.get('/study_progress', async (req, res, next) => {
 });
 
 // GET /api/dashboard/quick_stats
-router.get('/quick_stats', async (req, res) => {
+router.get('/quick_stats', async (_, res) => {
   try {
     const totalStudySessions = await StudySession.count();
     const totalActiveGroups = await Group.count({
