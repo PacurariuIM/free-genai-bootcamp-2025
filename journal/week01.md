@@ -84,6 +84,12 @@ npm run seed
 # Start the development server
 npm run dev
 ```
+
+- test the routes in PowerShell
+```bash
+Invoke-WebRequest -Uri http://localhost:3000/api/dashboard/study_progress -Method GET # change the routes as needed
+```
+
 - Documentation
 - Example requests/responses
 

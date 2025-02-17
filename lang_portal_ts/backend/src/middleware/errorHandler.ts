@@ -3,7 +3,7 @@ import { ZodError } from 'zod';
 
 export const errorHandler = (
   err: Error,
-  req: Request,
+  _: Request,
   res: Response,
   next: NextFunction
 ) => {
@@ -25,4 +25,10 @@ export const errorHandler = (
   res.status(500).json({
     error: 'Internal server error'
   });
+
+  // Ensure next is called to avoid "Not all code paths return a value" error
+  next();
+  
+  // Add a return statement to satisfy TypeScript
+  return;
 }; 

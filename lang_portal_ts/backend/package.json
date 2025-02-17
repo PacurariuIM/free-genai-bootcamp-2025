@@ -6,7 +6,9 @@
     "dev": "ts-node-dev src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "seed": "ts-node src/scripts/seed.ts"
+    "seed": "ts-node src/scripts/seed.ts",
+    "test": "jest",
+    "migrate": "sequelize-cli db:migrate --config sequelize.js"
   },
   "dependencies": {
     "@types/cors": "^2.8.17",
@@ -18,10 +20,19 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.14",
     "@types/node": "^20.11.24",
     "@types/sequelize": "^4.28.20",
+    "@types/supertest": "^6.0.2",
+    "sequelize-cli": "^6.6.2",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.3.3"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
   },
   "description": "",
   "keywords": [],

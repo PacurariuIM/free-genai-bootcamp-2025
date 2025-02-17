@@ -87,8 +87,22 @@ router.get('/quick_stats', async (_, res) => {
     
     const successRate = totalReviews ? (correctReviews / totalReviews) * 100 : 0;
 
-    // Calculate study streak (simplified version)
-    const studyStreak = 3; // Placeholder - implement actual streak calculation
+    // Calculate study streak dynamically
+    const studySessions = await StudySession.findAll({
+      order: [['startedAt', 'DESC']],
+      limit: 10 // Adjust limit as needed
+    });
+
+    let studyStreak = 0;
+    let lastSessionDate = null;
+
+    for (const session of studySessions) {
+      const sessionDate = new Date(session.startedAt).toDateString();
+      if (lastSessionDate === null || lastSessionDate !== sessionDate) {
+        studyStreak++;
+        lastSessionDate = sessionDate;
+      }
+    }
 
     res.json({
       successRate,

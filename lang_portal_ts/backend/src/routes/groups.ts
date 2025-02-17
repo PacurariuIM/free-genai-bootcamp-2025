@@ -9,10 +9,13 @@ const router = Router();
 // GET /api/groups - Get paginated list of groups
 router.get('/', validate(paginationSchema), async (req, res, next) => {
   try {
-    const { page, perPage } = req.query;
+    const page = Math.max(parseInt(req.query.page as string) || 1, 1);
+    const perPage = Math.max(parseInt(req.query.perPage as string) || 100, 1);
+    const offset = (page - 1) * perPage;
+
     const { count, rows } = await Group.findAndCountAll({
-      limit: Number(perPage),
-      offset: (Number(page) - 1) * Number(perPage),
+      limit: perPage,
+      offset,
       include: [{
         model: Word,
         attributes: ['id'],
@@ -25,16 +28,14 @@ router.get('/', validate(paginationSchema), async (req, res, next) => {
       wordCount: (group as unknown as GroupModel).Words?.length || 0
     }));
 
-    res.json({
+    return res.json({
       total: count,
       page,
       perPage,
       data: groups
     });
-    return;
   } catch (error) {
-    next(error);
-    return;
+    return next(error);
   }
 });
 

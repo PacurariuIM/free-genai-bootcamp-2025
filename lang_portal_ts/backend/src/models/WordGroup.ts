@@ -20,7 +20,9 @@ WordGroup.init(
       references: {
         model: 'Words',
         key: 'id'
-      }
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     },
     groupId: {
       type: DataTypes.INTEGER,
@@ -28,7 +30,9 @@ WordGroup.init(
       references: {
         model: 'Groups',
         key: 'id'
-      }
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     }
   },
   {

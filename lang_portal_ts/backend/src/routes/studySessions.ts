@@ -6,11 +6,11 @@ import { paginationSchema, studySessionSchema, wordReviewSchema } from '../schem
 
 const router = Router();
 
-// GET /api/study-sessions
+// GET /api/study_sessions
 router.get('/', validate(paginationSchema), async (req, res, next) => {
   try {
-    const page = parseInt(req.query.page as string) || 1;
-    const perPage = 100;
+    const page = Math.max(parseInt(req.query.page as string) || 1, 1);
+    const perPage = Math.max(parseInt(req.query.perPage as string) || 100, 1);
     const offset = (page - 1) * perPage;
 
     const { count, rows } = await StudySession.findAndCountAll({

@@ -22,7 +22,9 @@ WordReview.init(
       references: {
         model: 'Words',
         key: 'id'
-      }
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     },
     studySessionId: {
       type: DataTypes.INTEGER,
@@ -30,7 +32,9 @@ WordReview.init(
       references: {
         model: 'StudySessions',
         key: 'id'
-      }
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     },
     correct: {
       type: DataTypes.BOOLEAN,

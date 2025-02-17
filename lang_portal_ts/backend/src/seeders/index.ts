@@ -1,14 +1,37 @@
 import { Word, Group, StudyActivity } from '../models';
 import { sequelize } from '../config/database';
 import { GroupModel } from '../types/models';
-import { WordSeedData, StudyActivitySeedData } from '../types/seedData';
+import { WordSeedData } from '../types/seedData';
 import { WordModel } from '../types/models';
 
 // Import seed data
 import adjectives from './data_adjectives.json';
 import nouns from './data_nouns.json';
 import verbs from './data_verbs.json';
-import studyActivities from './study_activities.json';
+
+export async function seedStudyActivities() {
+  const activities = [
+    {
+      name: 'Flashcards',
+      description: 'Practice with digital flashcards',
+      thumbnail: 'flashcards.png',
+      launchUrl: '/activities/flashcards'
+    },
+    {
+      name: 'Word Match',
+      description: 'Match German words with their English translations',
+      thumbnail: 'word-match.png',
+      launchUrl: '/activities/word-match'
+    }
+  ];
+
+  for (const activity of activities) {
+    await StudyActivity.findOrCreate({
+      where: { name: activity.name },
+      defaults: activity
+    });
+  }
+}
 
 export async function seedDatabase() {
   try {
@@ -53,14 +76,7 @@ export async function seedDatabase() {
     await verbsGroup.setWords(verbWords);
 
     // Seed study activities
-    await StudyActivity.bulkCreate(
-      (studyActivities as StudyActivitySeedData[]).map(activity => ({
-        name: activity.name,
-        description: activity.description,
-        thumbnail: activity.thumbnail,
-        launchUrl: activity.launchUrl
-      }))
-    );
+    await seedStudyActivities();
 
     console.log('Database seeded successfully!');
   } catch (error) {

@@ -9,11 +9,12 @@ const router = Router();
 // GET /api/words - Get paginated list of words
 router.get('/', validate(paginationSchema), async (req, res, next) => {
   try {
-    const { page, perPage } = req.query;
-    const offset = (Number(page) - 1) * Number(perPage);
+    const page = Math.max(parseInt(req.query.page as string) || 1, 1);
+    const perPage = Math.max(parseInt(req.query.perPage as string) || 100, 1);
+    const offset = (page - 1) * perPage;
 
     const { count, rows } = await Word.findAndCountAll({
-      limit: Number(perPage),
+      limit: perPage,
       offset,
       include: [{
         model: WordReview,
@@ -40,7 +41,6 @@ router.get('/', validate(paginationSchema), async (req, res, next) => {
     });
   } catch (error) {
     next(error);
-    return;
   }
 });
 

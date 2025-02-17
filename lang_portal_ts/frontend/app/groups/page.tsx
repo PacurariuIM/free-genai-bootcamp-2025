@@ -6,7 +6,8 @@ export default async function GroupsPage({
 }: {
   searchParams: { page?: string }
 }) {
-  const page = searchParams.page ? parseInt(searchParams.page) : 1
+  const pageParam = await searchParams.page;
+  const page = Number(pageParam) || 1;
   const groups = await getGroups(page)
 
   return (
